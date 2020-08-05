@@ -1,0 +1,63 @@
+﻿@model Product_Quadra.Models.Product
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>เพิ่มสินค้า</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data" asp-controller="Product" asp-action="Create" name="form1" onsubmit="required()">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" name="name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">รายละเอียดสินค้า:</label>
+                <textarea asp-for="Title" class="form-control" rows="3" name="title"></textarea>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span>เลือกรูปภาพ:</span>
+                <div class="col-md-auto">
+                    <input type="file" name="file" />
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">กลับหน้าหลัก</a>
+            </div>
+        </form>
+
+        <div>
+        </div>
+    </div>
+</div>
+<script>
+    function required() {
+        var empt1 = document.forms["form1"]["file"].value;
+        var empt2 = document.forms["form1"]["name"].value;
+        var empt3 = document.forms["form1"]["title"].value;
+        if (empt2 == "") {
+            alert("กรุณากรอกชื่อสินค้า");
+            return false;
+        } else if (empt3 == "") {
+            alert("กรุณากรอกรายละเอียดสินค้า");
+            return false;
+        } else if (empt1 == "") {
+            alert("กรุณาเลือกรูปภาพสินค้า");
+            return false;
+        } else {
+            alert("คุณได้เพิ่มสินค้า 1 รายการ");
+            return true;
+        }
+    }
+</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
